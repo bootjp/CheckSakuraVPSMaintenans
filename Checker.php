@@ -24,7 +24,7 @@ class Checker
         );
         if (!is_null($iniFilePath)) {
             if (!file_exists($iniFilePath)) {
-                throw new InvalidArgumentException('ini file not fount');
+                throw new InvalidArgumentException('ini file not found');
             }
 
             self::$ipAddress = parse_ini_file($iniFilePath, true);
