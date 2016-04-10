@@ -48,7 +48,7 @@ class Checker
             foreach ($matches['page'] as $page) {
                 $pageUrl = 'http://support.sakura.ad.jp/mainte/mainteentry.php?id=' . $page;
                 $contents = $this->client->get($pageUrl)->getBody()->getContents();
-                preg_match_all('{(?<ipaddress>[0-9]+.[0-9]+.[0-9]+.[0-9]+)}s', $contents, $matches);
+                preg_match_all('{(?<ipaddress>[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)}s', $contents, $matches);
 
                 $onPageIpAddress = $matches['ipaddress'];
                 if (array_key_exists('static', self::$ipAddress)) {
