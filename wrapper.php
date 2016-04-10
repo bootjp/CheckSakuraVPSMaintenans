@@ -7,8 +7,9 @@ echo "\n";
 
 $result = ((new Checker())->fetch());
 
-var_export($result);
-
 if (count($result) !== 0) {
+    var_export($result);
     exit(1);
 }
+
+echo "ipaddress was not found.\n";

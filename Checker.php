@@ -9,16 +9,12 @@ class Checker
 {
     protected $client;
 
-    protected static $IpAddress;
+    protected static $ipAddress;
 
-    /**
-     * initialisation.
-     */
     public function __construct()
     {
         $this->client = new \GuzzleHttp\Client([
                 'defaults' => [
-                    'exceptions' => false,
                     'headers' => [
                         'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) ' .
                         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.111 Safari/537.36'
@@ -27,7 +23,7 @@ class Checker
             ]
         );
 
-        self::$IpAddress = parse_ini_file(__DIR__ . '/ipaddress.ini', true);
+        self::$ipAddress = parse_ini_file(__DIR__ . '/ipaddress.ini', true);
     }
 
     /**
@@ -50,8 +46,8 @@ class Checker
 
                 $onPageIpAddress = $matches['ipaddress'];
 
-                if (array_key_exists('static', self::$IpAddress)) {
-                    $result = array_filter(self::$IpAddress['static'], function ($ipAddress) use ($onPageIpAddress) {
+                if (array_key_exists('static', self::$ipAddress)) {
+                    $result = array_filter(self::$ipAddress['static'], function ($ipAddress) use ($onPageIpAddress) {
                         return in_array($ipAddress, $onPageIpAddress);
                     });
                     if (count($result) !== 0) {
@@ -59,8 +55,8 @@ class Checker
                     }
                 }
 
-                if (array_key_exists('regexp', self::$IpAddress)) {
-                    $result = array_filter(self::$IpAddress['regexp'], function ($ipAddress) use ($onPageIpAddress) {
+                if (array_key_exists('regexp', self::$ipAddress)) {
+                    $result = array_filter(self::$ipAddress['regexp'], function ($ipAddress) use ($onPageIpAddress) {
                         return preg_grep($ipAddress, $onPageIpAddress);
                     });
                     if (count($result) !== 0) {
