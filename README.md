@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/bootjp/CheckSakuraVPSMaintenans.svg?branch=master)](https://travis-ci.org/bootjp/CheckSakuraVPSMaintenans)
 
-### haw to use
+### how to use
 
 ```bash
 git clone git@github.com:bootjp/CheckSakuraVPSMaintenans.git
