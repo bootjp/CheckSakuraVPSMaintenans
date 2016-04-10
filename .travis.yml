@@ -1,0 +1,9 @@
+language: php
+
+before_script:
+    - composer install
+script: php wrapper.php --url=https://bootjp.me
+php:
+  - 5.6
+  - 7
+
