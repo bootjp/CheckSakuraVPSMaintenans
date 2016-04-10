@@ -11,6 +11,8 @@ class Checker
 
     protected static $ipAddress;
 
+    protected $error = '';
+
     public function __construct($iniFilePath = null)
     {
         $this->client = new \GuzzleHttp\Client([
@@ -39,20 +41,16 @@ class Checker
      */
     public function fetch($url = 'http://support.sakura.ad.jp/mainte/mainteindex.php?service=vps')
     {
-        $error = '';
         $existsIpAddress = [];
 
         try {
-            $response = $this->client->get($url);
-
-            preg_match_all('{/mainte/mainteentry.php\?id=(?<page>.+?)"}s', $response->getBody()->getContents(), $matches);
+            preg_match_all('{/mainte/mainteentry.php\?id=(?<page>.+?)"}s', $this->client->get($url)->getBody()->getContents(), $matches);
             foreach ($matches['page'] as $page) {
                 $pageUrl = 'http://support.sakura.ad.jp/mainte/mainteentry.php?id=' . $page;
                 $contents = $this->client->get($pageUrl)->getBody()->getContents();
-                preg_match_all('#(?<ipaddress>[0-9]+.[0-9]+.[0-9]+.[0-9]+?)#', $contents, $matches);
+                preg_match_all('{(?<ipaddress>[0-9]+.[0-9]+.[0-9]+.[0-9]+)}s', $contents, $matches);
 
                 $onPageIpAddress = $matches['ipaddress'];
-
                 if (array_key_exists('static', self::$ipAddress)) {
                     $result = array_filter(self::$ipAddress['static'], function ($ipAddress) use ($onPageIpAddress) {
                         return in_array($ipAddress, $onPageIpAddress);
@@ -70,19 +68,21 @@ class Checker
                         $existsIpAddress['regexp'][$pageUrl] = $result;
                     }
                 }
-
                 usleep(500000);
             }
 
 
         } catch (\Exception $e) {
-            $error .= "{$e->getMessage()}\n";
-        }
-
-        if ($error !== '') {
-            var_export($error);
+            $this->error .= "{$e->getMessage()}\n";
         }
 
         return $existsIpAddress;
+    }
+
+    public function getException()
+    {
+        if ($this->error !== '') {
+            throw new RuntimeException($this->error);
+        }
     }
 }
