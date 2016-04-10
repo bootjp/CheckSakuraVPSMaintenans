@@ -44,7 +44,7 @@ class Checker
 
             preg_match_all('{/mainte/mainteentry.php\?id=(?<page>.+?)"}s', $response->getBody()->getContents(), $matches);
             foreach ($matches['page'] as $page) {
-                $pageUrl = "http://support.sakura.ad.jp/mainte/mainteentry.php?id={$page}";
+                $pageUrl = 'http://support.sakura.ad.jp/mainte/mainteentry.php?id=' . $page;
                 $contents = $this->client->get($pageUrl)->getBody()->getContents();
                 preg_match_all('#(?<ipaddress>[0-9]+.[0-9]+.[0-9]+.[0-9]+?)#', $contents, $matches);
 
@@ -69,7 +69,7 @@ class Checker
 
 
         } catch (\Exception $e) {
-            $error .= "\n {$url}\t {$e->getMessage()}";
+            $error .= "{$e->getMessage()}\n";
         }
 
         if ($error !== '') {
