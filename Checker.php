@@ -50,18 +50,22 @@ class Checker
 
                 $onPageIpAddress = $matches['ipaddress'];
 
-                $result = array_filter(self::$IpAddress['static'], function ($ipAddress) use ($onPageIpAddress) {
-                    return in_array($ipAddress, $onPageIpAddress);
-                });
-                if (count($result) !== 0) {
-                    $existsIpAddress['static'][$pageUrl] = $result;
+                if (array_key_exists('static', self::$IpAddress)) {
+                    $result = array_filter(self::$IpAddress['static'], function ($ipAddress) use ($onPageIpAddress) {
+                        return in_array($ipAddress, $onPageIpAddress);
+                    });
+                    if (count($result) !== 0) {
+                        $existsIpAddress['static'][$pageUrl] = $result;
+                    }
                 }
 
-                $result = array_filter(self::$IpAddress['regexp'], function ($ipAddress) use ($onPageIpAddress) {
-                    return preg_grep($ipAddress, $onPageIpAddress);
-                });
-                if (count($result) !== 0) {
-                    $existsIpAddress['regexp'][$pageUrl] = $result;
+                if (array_key_exists('regexp', self::$IpAddress)) {
+                    $result = array_filter(self::$IpAddress['regexp'], function ($ipAddress) use ($onPageIpAddress) {
+                        return preg_grep($ipAddress, $onPageIpAddress);
+                    });
+                    if (count($result) !== 0) {
+                        $existsIpAddress['regexp'][$pageUrl] = $result;
+                    }
                 }
 
                 usleep(500000);
