@@ -11,7 +11,7 @@ class Checker
 
     protected static $ipAddress;
 
-    public function __construct()
+    public function __construct($iniFilePath = null)
     {
         $this->client = new \GuzzleHttp\Client([
                 'defaults' => [
@@ -22,8 +22,15 @@ class Checker
                 ]
             ]
         );
+        if (!is_null($iniFilePath)) {
+            if (!file_exists($iniFilePath)) {
+                throw new InvalidArgumentException('ini file not fount');
+            }
 
-        self::$ipAddress = parse_ini_file(__DIR__ . '/ipaddress.ini', true);
+            self::$ipAddress = parse_ini_file($iniFilePath, true);
+        } else {
+            self::$ipAddress = parse_ini_file(__DIR__ . '/ipaddress.ini', true);
+        }
     }
 
     /**

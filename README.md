@@ -15,3 +15,15 @@ composer install
 ```
 
 and Edit ipaddress.ini
+
+### run of script
+
+```bash
+php wrapper.php 
+```
+
+### run of docker image (https://hub.docker.com/r/bootjp/checksakuravpsmaintenans/)
+
+```bash
+docker run -e ENV_INI="ini file path" -v ini file dir/:/tmp bootjp/checksakuravpsmaintenans 
+```

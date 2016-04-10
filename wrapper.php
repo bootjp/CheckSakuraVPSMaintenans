@@ -3,9 +3,9 @@
 require_once (__DIR__ . '/vendor/autoload.php');
 require_once (__DIR__ . '/Checker.php');
 
-echo "\n";
+$iniFilePath = getenv('ENV_INI');
 
-$result = ((new Checker())->fetch());
+$result = ((new Checker($iniFilePath !== false ? $iniFilePath : null))->fetch());
 
 if (count($result) !== 0) {
     var_export($result);
