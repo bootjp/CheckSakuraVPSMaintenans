@@ -1,6 +1,15 @@
 {
-  "require": {
-    "bootjp/checksakuravpsmaintenans" : "0.x.x",
-    "guzzlehttp/guzzle": "5.x.x"
-  }
+    "name": "bootjp/sakura_vps_maintenance_check",
+    "description": "Check whether the IP address to the maintenance information page of Sakura VPS exists",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bootjp",
+            "email": "oh@bootjp.me"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {
+      "guzzlehttp/guzzle": "5.x.x"
+    }
 }
