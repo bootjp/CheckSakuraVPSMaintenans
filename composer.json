@@ -1,6 +1,6 @@
 {
   "require": {
-    "bootjp/CheckSakuraVPSMaintenans" : "0.x.x",
+    "bootjp/checksakuravpsmaintenans" : "0.x.x",
     "guzzlehttp/guzzle": "5.x.x"
   }
 }
