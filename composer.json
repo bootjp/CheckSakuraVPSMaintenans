@@ -1,5 +1,6 @@
 {
   "require": {
-    "guzzlehttp/guzzle": "~5.0"
+    "bootjp/CheckSakuraVPSMaintenans" : "0.x.x",
+    "guzzlehttp/guzzle": "5.x.x"
   }
 }
