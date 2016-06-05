@@ -78,7 +78,7 @@ class Checker
     public function getException()
     {
         if ($this->error !== '') {
-            throw new RuntimeException($this->error);
+            throw new \RuntimeException($this->error);
         }
     }
 }
