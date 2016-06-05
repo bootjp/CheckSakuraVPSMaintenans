@@ -1,5 +1,7 @@
 <?php
 
+namespace Maintenance;
+
 require_once (__DIR__ . '/vendor/autoload.php');
 
 /**
@@ -26,7 +28,7 @@ class Checker
         );
         if (!is_null($iniFilePath)) {
             if (!file_exists($iniFilePath)) {
-                throw new InvalidArgumentException('ini file not found');
+                throw new \InvalidArgumentException('ini file not found');
             }
 
             self::$ipAddress = parse_ini_file($iniFilePath, true);
@@ -51,21 +53,15 @@ class Checker
                 preg_match_all('{(?<ipaddress>[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)}s', $contents, $matches);
 
                 $onPageIpAddress = $matches['ipaddress'];
-                if (array_key_exists('static', self::$ipAddress)) {
-                    $result = array_filter(self::$ipAddress['static'], function ($ipAddress) use ($onPageIpAddress) {
-                        return in_array($ipAddress, $onPageIpAddress);
-                    });
-                    if (count($result) !== 0) {
-                        $existsIpAddress['static'][$pageUrl] = $result;
-                    }
-                }
 
-                if (array_key_exists('regexp', self::$ipAddress)) {
-                    $result = array_filter(self::$ipAddress['regexp'], function ($ipAddress) use ($onPageIpAddress) {
-                        return preg_grep($ipAddress, $onPageIpAddress);
-                    });
-                    if (count($result) !== 0) {
-                        $existsIpAddress['regexp'][$pageUrl] = $result;
+                foreach(array_keys(self::$ipAddress) as $type) {
+                    if (array_key_exists($type, self::$ipAddress)) {
+                        $result = array_filter(self::$ipAddress[$type], function ($ipAddress) use ($onPageIpAddress) {
+                            return in_array($ipAddress, $onPageIpAddress);
+                        });
+                        if (count($result) !== 0) {
+                            $existsIpAddress[$type][$pageUrl] = $result;
+                        }
                     }
                 }
                 usleep(500000);
@@ -82,7 +78,7 @@ class Checker
     public function getException()
     {
         if ($this->error !== '') {
-            throw new RuntimeException($this->error);
+            throw new \RuntimeException($this->error);
         }
     }
 }
