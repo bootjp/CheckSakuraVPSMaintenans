@@ -3,6 +3,7 @@
 
 
 [![Build Status](https://travis-ci.org/bootjp/CheckSakuraVPSMaintenans.svg?branch=master)](https://travis-ci.org/bootjp/CheckSakuraVPSMaintenans)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bootjp/CheckSakuraVPSMaintenans/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bootjp/CheckSakuraVPSMaintenans/?branch=master)
 
 ### how to use
 
