@@ -2,7 +2,7 @@ language: php
 
 before_script:
     - composer install
-script: php wrapper.php
+script: php sample.php
 php:
   - 5.6
   - 7
