@@ -20,13 +20,13 @@ and Edit ipaddress.ini
 ### run of script
 
 ```bash
-php wrapper.php 
+php sample.php
 ```
 
 ### run of docker image (https://hub.docker.com/r/bootjp/checksakuravpsmaintenans/)
 
 ex)
 ```bash
-docker run -e ENV_INI="ini file path" -v ini file dir/:/tmp bootjp/checksakuravpsmaintenans php /app/wrapper.php
-docker run -it -e ENV_INI='/tmp/ipaddress.ini' -v $(pwd):/tmp bootjp/checksakuravpsmaintenans  php /app/wrapper.php
+docker run -e ENV_INI="ini file path" -v ini file dir/:/tmp bootjp/checksakuravpsmaintenans php /app/sample.php
+docker run -it -e ENV_INI='/tmp/ipaddress.ini' -v $(pwd):/tmp bootjp/checksakuravpsmaintenans  php /app/sample.php
 ```
