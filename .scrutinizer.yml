@@ -1,3 +1,7 @@
+build:
+  dependencies:
+    before:
+      - composer install
 checks:
   php:
     code_rating: true
